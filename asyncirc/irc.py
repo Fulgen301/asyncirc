@@ -280,7 +280,7 @@ def disconnected(client_wrapper):
         protocol.wrapper = client_wrapper
         signal("netid-available").send(protocol)
         client_wrapper.protocol = protocol
-    asyncio.async(connector).add_done_callback(reconnected)
+    asyncio.ensure_future(connector).add_done_callback(reconnected)
 
 signal("connection-lost").connect(disconnected)
 
