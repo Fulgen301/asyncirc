@@ -69,7 +69,7 @@ def _parse_mode(message):
         if mode in "+-":
             flag = mode
             continue
-        if mode in argument_modes:
+        if mode in argument_modes and args:
             arg = args.pop(0)
         else:
             arg = None
