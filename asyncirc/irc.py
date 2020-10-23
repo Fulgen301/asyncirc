@@ -88,7 +88,7 @@ class IRCProtocol(asyncio.Protocol):
 
     def data_received(self, data):
         if not self.work: return
-        data = data.decode()
+        data = data.decode(errors="ignore")
 
         self.buf += data
         while "\n" in self.buf:
@@ -133,7 +133,7 @@ class IRCProtocol(asyncio.Protocol):
             line = line.encode("utf-8")
         self.logger.debug(line)
         self.transport.write(line + b"\r\n")
-        signal("irc-send").send(line.decode())
+        signal("irc-send").send(line.decode(errors="ignore"))
 
     def writeln(self, line):
         """
